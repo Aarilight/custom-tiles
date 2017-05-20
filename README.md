@@ -6,7 +6,7 @@ Instructions:
 2. Run create-tile.bat
 3. Input `y`, for yes, to add a context menu on the Supported FileTypes.
 4. Right click on a file of one of the supported file types, and run the new context menu command Create Custom Tile.
-5. A new console window should open, closing if it requires administrator permissions to add a tile for this file (common for Program Files apps)
+5. A new console window should open, reopening if it requires administrator permissions to add a tile for this file (common for Program Files apps)
 6. When the tile can be created, you will have a prompt for an image. This will be the logo on your tile.
 7. Type in the path of your image (or drag it to the console).
 8. Type in whether your text should be white or black (light/dark).
