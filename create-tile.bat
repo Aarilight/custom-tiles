@@ -36,9 +36,9 @@ if NOT DEFINED args (
 		
 		rem Run and delete the temporary .reg file
 		start !tempfile!
-		del !tempfile!
 	)
 	pause
+	del !tempfile!
 	exit
 )
 
