@@ -3,16 +3,17 @@
 
 Instructions: 
 1. Download/clone from https://github.com/Aarilight/custom-tiles
-2. Run create-tile.bat
-3. Input `y`, for yes, to add a context menu on the Supported FileTypes.
-4. Right click on a file of one of the supported file types, and run the new context menu command Create Custom Tile.
-5. A new console window should open, reopening if it requires administrator permissions to add a tile for this file (common for Program Files apps)
-6. When the tile can be created, you will have a prompt for an image. This will be the logo on your tile.
-7. Type in the path of your image (or drag it to the console).
-8. Type in whether your text should be white or black (light/dark).
-9. Type in the hex colour of the background of your tile.
-10. Pin the .exe to Start.
-11. Profit.
+1. Run create-tile.bat
+1. Input `y`, for yes, to add a context menu on the Supported FileTypes.
+1. Verify that ps2exe.ps1 is unblocked. Right click on the file, and at the bottom you may see an empty checkbox. Check it. ![unblock me](https://puu.sh/vVQBi/2ac98c17fa.png)
+1. Right click on a file of one of the supported file types, and run the new context menu command Create Custom Tile.
+1. A new console window should open, reopening if it requires administrator permissions to add a tile for this file (common for Program Files apps)
+1. When the tile can be created, you will have a prompt for an image. This will be the logo on your tile.
+1. Type in the path of your image (or drag it to the console).
+1. Type in whether your text should be white or black (light/dark).
+1. Type in the hex colour of the background of your tile.
+1. Pin the .exe to Start.
+1. Profit.
 
 ## Not convinced?
 
