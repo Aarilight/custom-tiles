@@ -1,6 +1,44 @@
 @echo off
 setlocal EnableDelayedExpansion
 
+set args=%*
+if NOT DEFINED args (
+	set /p choice="Add 'Create Custom Tile' to context menu? (y/n): "
+	if "!choice!" EQU "y" (
+		set basedir=%~dp0
+		set tempfile=!basedir!custom-tiles.reg
+		
+		echo Windows Registry Editor Version 5.00 > "!tempfile!"
+
+		echo [HKEY_CURRENT_USER\Software\Classes\exefile\shell\CreateCustomTile] >> "!tempfile!"
+		echo @="Create Custom Tile" >> "!tempfile!"
+		echo [HKEY_CURRENT_USER\Software\Classes\exefile\shell\CreateCustomTile\command] >> "!tempfile!"
+		echo @="\"!basedir:\=\\!create-tile.bat\" \"%%1\"" >> "!tempfile!"
+
+		echo [HKEY_CURRENT_USER\Software\Classes\lnkfile\shell\CreateCustomTile] >> "!tempfile!"
+		echo @="Create Custom Tile" >> "!tempfile!"
+		echo [HKEY_CURRENT_USER\Software\Classes\lnkfile\shell\CreateCustomTile\command] >> "!tempfile!"
+		echo @="\"!basedir:\=\\!create-tile.bat\" \"%%1\"" >> "!tempfile!"
+
+		echo [HKEY_CURRENT_USER\Software\Classes\Application.Reference\shell\CreateCustomTile] >> "!tempfile!"
+		echo @="Create Custom Tile" >> "!tempfile!"
+		echo [HKEY_CURRENT_USER\Software\Classes\Application.Reference\shell\CreateCustomTile\command] >> "!tempfile!"
+		echo @="\"!basedir:\=\\!create-tile.bat\" \"%%1\"" >> "!tempfile!"
+
+		echo [HKEY_CURRENT_USER\Software\Classes\batfile\shell\CreateCustomTile] >> "!tempfile!"
+		echo @="Create Custom Tile" >> "!tempfile!"
+		echo [HKEY_CURRENT_USER\Software\Classes\batfile\shell\CreateCustomTile\command] >> "!tempfile!"
+		echo @="\"!basedir:\=\\!create-tile.bat\" \"%%1\"" >> "!tempfile!"
+		
+		echo !tempfile!
+		
+		start !tempfile!
+		echo del !tempfile!
+	)
+	pause
+	exit
+)
+
 set basefile=%1
 set basedir=%~p1
 set arg2=%2
