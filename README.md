@@ -15,7 +15,6 @@ Instructions:
 11. Profit.
 
 
-
 ### Supported FileTypes
 `exe`
 `lnk`
@@ -23,3 +22,7 @@ Instructions:
 `bat`
 
 Open an issue if you need another filetype supported.
+
+### Dependencies
+
+This project would not work on non-exe files if not for [ps2exe](https://gallery.technet.microsoft.com/PS2EXE-Convert-PowerShell-9e4e07f1). (Or at least, it would have taken me a lot longer to implement)
