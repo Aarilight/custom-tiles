@@ -2,35 +2,60 @@
 setlocal EnableDelayedExpansion
 
 set basefile=%1
+set basedir=%~p1
+set arg2=%2
+set cwd=%~dp0
 
-rem Reopen as admin, if not already admin
+rem If not already admin
 if '%1' NEQ 'am_admin' (
-	set basefile=%basefile: =--%
-	powershell start -verb runas '%0' 'am_admin !basefile!'
-	exit
+	rem Check if this directory is writable
+	copy /Y NUL "%basedir%\.writable" > NUL 2>&1 && set writable=1
+	if NOT DEFINED writable ( 
+		rem This directory isn't writable, so request admin and reopen
+		set basefile=%basefile: =--%
+		powershell start -verb runas '%0' 'am_admin !basefile!'
+		exit
+	)
+	del "%basedir%\.writable"
+) else (
+	set basefile=!arg2:--= !
 )
-
-set basefile=%2
-set basefile=%basefile:--= %
 
 echo Creating a custom tile for the file: %basefile%
 
+set basefile=%basefile:"=%
 set basefile=%basefile:/=\%
-set basefile=%basefile:~0,-4%
+for /f %%i in ("%basefile: =--%") do (
+	set basedir=%%~dpi
+	set basefile=%%~ni
+	set baseext=%%~xi
+	set basedir=!basedir:--= !
+	set basefile=!basefile:--= !
+	set baseext=!baseext:--= !
+	set basefile=!basedir!!basefile!
+)
+
+if "%baseext%" NEQ ".exe" (
+	echo Start-Process "%basefile%%baseext%" > launch.ps1
+	powershell -executionpolicy remotesigned -File %cwd%\ps2exe.ps1 -inputFile launch.ps1 "%basefile%.exe" > nul
+	del launch.ps1
+	del "%basefile%.exe.config"
+)
+
 set visualfile=%basefile%.VisualElementsManifest.xml
 
-echo %visualfile%
 
 set /p image="Image: "
-set imageext=%image:~-4%
+for %%i in ("%image%") do set imageext=%%~xi
 
 set imagefile=%basefile%.tile%imageext%
 
 copy /y "%image%" "%imagefile%" > nul
 
-for /f %%i in ("%imagefile: =--%") do set imagefile=%%~nxi
-
-set imagefile=%imagefile:--= %
+for /f %%i in ("%imagefile: =--%") do (
+	set imagefile=%%~nxi
+	set imagefile=!imagefile:--= !
+)
 
 set /p text="Text (light/dark): "
 set /p background="Background (hex color): #"

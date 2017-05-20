@@ -1,0 +1,25 @@
+Windows Registry Editor Version 5.00
+
+; Created with Default Programs Editor
+; http://defaultprogramseditor.com/
+
+; Add Verb
+[HKEY_CURRENT_USER\Software\Classes\exefile\shell\CreateCustomTile]
+@="Create Custom Tile"
+[HKEY_CURRENT_USER\Software\Classes\exefile\shell\CreateCustomTile\command]
+@="\"C:\\Users\\Mackenzie\\GitHub\\other\\custom-tiles\\create-tile.bat\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Classes\lnkfile\shell\CreateCustomTile]
+@="Create Custom Tile"
+[HKEY_CURRENT_USER\Software\Classes\lnkfile\shell\CreateCustomTile\command]
+@="\"C:\\Users\\Mackenzie\\GitHub\\other\\custom-tiles\\create-tile.bat\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Classes\Application.Reference\shell\CreateCustomTile]
+@="Create Custom Tile"
+[HKEY_CURRENT_USER\Software\Classes\Application.Reference\shell\CreateCustomTile\command]
+@="\"C:\\Users\\Mackenzie\\GitHub\\other\\custom-tiles\\create-tile.bat\" \"%1\""
+
+[HKEY_CURRENT_USER\Software\Classes\batfile\shell\CreateCustomTile]
+@="Create Custom Tile"
+[HKEY_CURRENT_USER\Software\Classes\batfile\shell\CreateCustomTile\command]
+@="\"C:\\Users\\Mackenzie\\GitHub\\other\\custom-tiles\\create-tile.bat\" \"%1\""
