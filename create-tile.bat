@@ -85,7 +85,16 @@ if "%baseext%" NEQ ".exe" (
 	
 	echo Start-Process "%basefile%%baseext%" > launch.ps1
 	rem Uses Ps2exe
-	powershell -executionpolicy remotesigned -File %cwd%\ps2exe.ps1 -inputFile launch.ps1 "%basefile%.exe" > nul
+	set ps2exe=%cwd%\dependencies\ps2exe.ps1
+	
+	rem $PSVersionTable.PSVersion.Major -eq 4
+	if NOT EXIST !ps2exe! (
+		set tempzip=%temp%\ps2exe.zip
+		wget -O !tempzip! "https://gallery.technet.microsoft.com/PS2EXE-Convert-PowerShell-9e4e07f1/file/134627/1/PS2EXE-v0.5.0.0.zip" --no-check-certificate
+		call :unzip "%cwd%\dependencies" "!tempzip!"
+	)
+	
+	powershell -executionpolicy remotesigned -File  -inputFile launch.ps1 "%basefile%.exe" > nul
 	
 	rem Cleanup
 	del launch.ps1
@@ -138,3 +147,20 @@ echo Square44x44Logo='%imagefile%'/^> >> "%visualfile%"
 echo ^</Application^> >> "%visualfile%"
 
 pause
+exit
+
+:unzip <ExtractTo> <newzipfile>
+set vbs="%temp%\_.vbs"
+if exist %vbs% del /f /q %vbs%
+echo %1 %2
+> %vbs% echo Set fso = CreateObject("Scripting.FileSystemObject")
+>>%vbs% echo If NOT fso.FolderExists(%1) Then
+>>%vbs% echo fso.CreateFolder(%1)
+>>%vbs% echo End If
+>>%vbs% echo set objShell = CreateObject("Shell.Application")
+>>%vbs% echo set FilesInZip=objShell.NameSpace(%2).items
+>>%vbs% echo objShell.NameSpace(%1).CopyHere(FilesInZip)
+>>%vbs% echo Set fso = Nothing
+>>%vbs% echo Set objShell = Nothing
+cscript //nologo %vbs%
+if exist %vbs% del /f /q %vbs%
