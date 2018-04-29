@@ -91,7 +91,7 @@ if "%baseext%" NEQ ".exe" (
 	if NOT EXIST !ps2exe! (
 		set tempzip=%temp%\ps2exe.zip
 		wget -O !tempzip! "https://gallery.technet.microsoft.com/PS2EXE-Convert-PowerShell-9e4e07f1/file/134627/1/PS2EXE-v0.5.0.0.zip" --no-check-certificate
-		call :unzip "%cwd%\dependencies" "!tempzip!"
+		call :unzip "%cwd%dependencies" "!tempzip!"
 	)
 	
 	powershell -executionpolicy remotesigned -File  -inputFile launch.ps1 "%basefile%.exe" > nul
