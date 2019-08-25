@@ -90,7 +90,7 @@ if "%baseext%" NEQ ".exe" (
 	rem $PSVersionTable.PSVersion.Major -eq 4
 	if NOT EXIST !ps2exe! (
 		set tempzip=%temp%\ps2exe.zip
-		wget -O !tempzip! "https://gallery.technet.microsoft.com/PS2EXE-Convert-PowerShell-9e4e07f1/file/134627/1/PS2EXE-v0.5.0.0.zip" --no-check-certificate
+		wget -O !tempzip! "https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-Convert-PowerShell-ab973757/file/174729/1/PS2EXE.v0.5.1.0.zip" --no-check-certificate
 		call :unzip "%cwd%dependencies" "!tempzip!"
 	)
 	
