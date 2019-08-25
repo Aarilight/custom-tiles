@@ -94,7 +94,7 @@ if "%baseext%" NEQ ".exe" (
 		call :unzip "%cwd%dependencies" "!tempzip!"
 	)
 	
-	powershell -executionpolicy remotesigned -File  -inputFile launch.ps1 "%basefile%.exe" > nul
+	powershell -executionpolicy remotesigned -File !ps2exe! -inputFile launch.ps1 "%basefile%.exe" > nul
 	
 	rem Cleanup
 	del launch.ps1
